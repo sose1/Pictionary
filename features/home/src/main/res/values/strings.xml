@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Pictionary</string>
-    <string name="code">Code</string>
-    <string name="connect">Connect</string>
-    <string name="Create">Create</string>
+    <string name="app_name">kalambury</string>
+    <string name="code">Kod gry</string>
+    <string name="connect">Połącz</string>
+    <string name="create">Stwórz</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+
+    <string name="dialog_title_create_room">Czy chcesz stworzyć nowy pokój gier?</string>
 </resources>

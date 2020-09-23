@@ -1,7 +1,7 @@
 package pl.sose1.home
 
+import android.app.AlertDialog
 import org.koin.android.viewmodel.ext.android.viewModel
-import android.widget.Toast
 import androidx.lifecycle.observe
 import pl.sose1.base.view.BaseActivity
 import pl.sose1.home.databinding.ActivityHomeBinding
@@ -18,8 +18,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
 
     private fun onViewEvent(event: HomeViewEvent) {
         when(event) {
-            HomeViewEvent.ShowToast ->
-                Toast.makeText(this, "Show Toast", Toast.LENGTH_LONG).show()
+            HomeViewEvent.OnClickCreateButton -> configureAlertDialog()
+
         }
+    }
+
+    private fun configureAlertDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_title_create_room)
+            .setPositiveButton(R.string.yes) { _, _ -> }
+            .setNegativeButton(R.string.no) { _, _ -> }
+            .show()
     }
 }
