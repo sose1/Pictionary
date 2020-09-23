@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Pictionary</string>
+    <string name="code">Code</string>
+    <string name="connect">Connect</string>
+    <string name="Create">Create</string>
 </resources>

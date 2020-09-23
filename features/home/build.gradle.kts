@@ -3,6 +3,7 @@ import dependencies.*
 plugins {
     id("common-android-library")
     kotlin("kapt")
+    id("kotlin-android")
 }
 
 dependencies {
@@ -21,6 +22,8 @@ dependencies {
 
     implementation(Libraries.coroutines)
     implementation(Libraries.coroutinesAndroid)
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
 
     kapt(Libraries.databinding)
 }

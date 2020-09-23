@@ -1,11 +1,25 @@
 package pl.sose1.home
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import org.koin.android.viewmodel.ext.android.viewModel
+import android.widget.Toast
+import androidx.lifecycle.observe
+import pl.sose1.base.view.BaseActivity
+import pl.sose1.home.databinding.ActivityHomeBinding
 
-class HomeActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId = R.layout.activity_home) {
+
+    override val viewModel by viewModel<HomeViewModel>()
+
+    override fun onInitDataBinding() {
+        binding.viewModel = viewModel
+
+        viewModel.events.observe(this, this::onViewEvent)
+    }
+
+    private fun onViewEvent(event: HomeViewEvent) {
+        when(event) {
+            HomeViewEvent.ShowToast ->
+                Toast.makeText(this, "Show Toast", Toast.LENGTH_LONG).show()
+        }
     }
 }
