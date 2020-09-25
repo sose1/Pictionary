@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Kalambury</string>
+    <string name="game_room">Pokój gry</string>
     <string name="code">KOD GRY</string>
     <string name="connect">Połącz</string>
     <string name="create">Stwórz</string>
@@ -7,4 +8,5 @@
     <string name="no">Nie</string>
 
     <string name="dialog_title_create_room">Czy chcesz stworzyć nowy pokój gier?</string>
+    <string name="start">Start</string>
 </resources>

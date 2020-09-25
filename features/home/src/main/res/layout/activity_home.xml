@@ -20,6 +20,7 @@
             android:gravity="center"
             android:hint="@string/code"
             android:inputType="text"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/connect"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/editTextCode"
             app:layout_constraintStart_toStartOf="@+id/editTextCode"
             app:layout_constraintTop_toBottomOf="@+id/editTextCode" />
@@ -44,6 +46,7 @@
             android:layout_marginTop="8dp"
             android:onClick="@{() -> viewModel.onClickCreateButton()}"
             android:text="@string/create"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/connect_btn"
             app:layout_constraintStart_toStartOf="@+id/connect_btn"
             app:layout_constraintTop_toBottomOf="@+id/connect_btn" />
