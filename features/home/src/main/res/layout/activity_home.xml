@@ -13,40 +13,57 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:id="@+id/editTextUserName"
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/nickname"
+            android:inputType="text"
+            android:textSize="36sp"
+            android:text="@={viewModel.userName}"
+            app:layout_constraintBottom_toTopOf="@+id/editTextCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
             android:id="@+id/editTextCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/code"
             android:inputType="text"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@={viewModel.lobbyCode}"
+            app:layout_constraintBottom_toTopOf="@+id/connect_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/connect_btn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="@string/connect"
-            android:textSize="18sp"
+            android:textSize="24sp"
+            android:onClick="@{() -> viewModel.onCLickConnectButton()}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextCode"
             app:layout_constraintStart_toStartOf="@+id/editTextCode"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCode" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/create_btn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:onClick="@{() -> viewModel.onClickCreateButton()}"
             android:text="@string/create"
-            android:textSize="18sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/connect_btn"
             app:layout_constraintStart_toStartOf="@+id/connect_btn"
             app:layout_constraintTop_toBottomOf="@+id/connect_btn" />

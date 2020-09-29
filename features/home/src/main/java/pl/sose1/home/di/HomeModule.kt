@@ -5,5 +5,5 @@ import org.koin.dsl.module
 import pl.sose1.home.HomeViewModel
 
 val homeModule = module {
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get()) }
 }

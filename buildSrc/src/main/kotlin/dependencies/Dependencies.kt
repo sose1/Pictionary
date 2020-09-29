@@ -6,7 +6,7 @@ object Releases {
     const val versionCode = 1
     const val versionName = "0.1"
 
-    const val minSdk = 21
+    const val minSdk = 24
     const val compileSdk = 29
     const val targetSdk = 29
 }
@@ -23,6 +23,8 @@ private object Versions {
     const val appCompat = "1.1.0"
     const val material = "1.1.0"
     const val recyclerView = "1.1.0"
+    const val okHttp = "4.9.0"
+    const val gson = "2.8.6"
 }
 
 object Libraries {
@@ -48,6 +50,9 @@ object Libraries {
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
+    const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 }
 
 /*object TestLibraries {

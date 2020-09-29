@@ -8,5 +8,8 @@
     <string name="no">Nie</string>
 
     <string name="dialog_title_create_room">Czy chcesz stworzyć nowy pokój gier?</string>
+    <string name="user_name_is_empty">Nazwa gracza nie może być pusta</string>
     <string name="start">Start</string>
+    <string name="nickname">NAZWA GRACZA</string>
+    <string name="input_field_is_empty">Uzupełnj wszystkie pola</string>
 </resources>

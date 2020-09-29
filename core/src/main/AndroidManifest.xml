@@ -1,5 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pl.sose1.core">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="pl.sose1.core">
 
-    /
+    <application>
+
+    </application>
+
 </manifest>

@@ -15,7 +15,8 @@ dependencies {
     implementation(Libraries.appCompat)
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
-
+    implementation(Libraries.okHttp)
+    implementation(Libraries.gson)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     implementation(Libraries.navigationFragment)
