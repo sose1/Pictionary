@@ -36,9 +36,10 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/code"
-            android:inputType="text"
-            android:textSize="24sp"
+            android:inputType="textCapCharacters"
+            android:textAllCaps="true"
             android:text="@={viewModel.lobbyCode}"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/connect_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

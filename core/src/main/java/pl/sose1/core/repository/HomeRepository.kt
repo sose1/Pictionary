@@ -7,22 +7,30 @@ import kotlinx.coroutines.launch
 import okhttp3.*
 import okio.ByteString
 import pl.sose1.core.model.RequestEventName
-import pl.sose1.core.model.lobby.LobbyConnectRequest
 import pl.sose1.core.model.lobby.LobbyEvent
+import pl.sose1.core.model.lobby.LobbyRegisterRequest
 import timber.log.Timber
 
-class LobbyRepository(lobbyId: String) {
+class HomeRepository {
     private val client = OkHttpClient()
-    private val request = Request.Builder().url("ws://192.168.0.9:8080/lobby/$lobbyId").build()
+    private val request = Request.Builder().url("ws://192.168.0.9:8080/lobby").build()
     private val webSocket = client.newWebSocket(request, SocketListener())
-
     val messageChannel = Channel<LobbyEvent>(1)
 
-    fun connectToLobby(userId: String) {
+    fun createLobby(userNameString: String) {
         webSocket.send(
-            LobbyConnectRequest(userId,
-                RequestEventName.CONNECT.name).toJSON())
+            LobbyRegisterRequest(userNameString,
+                RequestEventName.CREATE_LOBBY.name).toJSON())
         client.dispatcher.executorService.shutdown()
+    }
+
+    fun registerToLobby(userNameString: String, code: String) {
+        webSocket.send(
+            LobbyRegisterRequest(userNameString,
+                RequestEventName.REGISTER_TO_LOBBY.name,
+                code).toJSON())
+        client.dispatcher.executorService.shutdown()
+
     }
 
     fun close() {
@@ -51,10 +59,10 @@ class LobbyRepository(lobbyId: String) {
             super.onMessage(webSocket, text)
             Timber.d("onMessage-TEXT: $text")
 
-            val response = Gson().fromJson(text, LobbyEvent.Connected::class.java)
+            val response = Gson().fromJson(text, LobbyEvent.Registered::class.java)
 
             GlobalScope.launch {
-                messageChannel.send(LobbyEvent.Connected(response.users))
+                messageChannel.send(LobbyEvent.Registered(response.user, response.lobbyId, response.code))
             }
         }
 

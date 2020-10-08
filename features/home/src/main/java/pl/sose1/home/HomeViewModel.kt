@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.LobbyEvent
-import pl.sose1.core.repository.LobbyRepository
-import timber.log.Timber
+import pl.sose1.core.model.lobby.LobbyEvent
+import pl.sose1.core.repository.HomeRepository
 
 class HomeViewModel(
-    private val lobbyRepository: LobbyRepository
+    private val homeRepository: HomeRepository
 ) : ViewModel() {
 
     val events = SingleLiveData<HomeViewEvent>()
@@ -20,9 +19,9 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            lobbyRepository.messageChannel.receiveAsFlow().collect { e ->
-                when(e) {
-                    is LobbyEvent.Created -> Timber.d(e.code)
+            homeRepository.messageChannel.receiveAsFlow().collect { e ->
+                when (e) {
+                    is LobbyEvent.Registered -> openLobbyActivity(e)
                 }
             }
         }
@@ -38,8 +37,7 @@ class HomeViewModel(
 
         viewModelScope.launch {
             if (userNameString != null && lobbyCodeString != null) {
-                lobbyRepository.connectToLobby(userNameString,lobbyCodeString)
-                events.value = HomeViewEvent.OnClickConnectButton
+                homeRepository.registerToLobby(userNameString, lobbyCodeString)
             } else {
                 events.value = HomeViewEvent.ShowInputFieldError
             }
@@ -50,8 +48,7 @@ class HomeViewModel(
         val userNameString = userName.value
         viewModelScope.launch {
             if (userNameString != null) {
-                lobbyRepository.createLobby(userNameString)
-                events.value = HomeViewEvent.OnClickPositiveButton
+                homeRepository.createLobby(userNameString)
             } else {
                 events.value = HomeViewEvent.ShowUserNameError
             }
@@ -60,6 +57,11 @@ class HomeViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        lobbyRepository.close()
+        homeRepository.close()
+    }
+
+    private fun openLobbyActivity(e: LobbyEvent.Registered) {
+        events.value = HomeViewEvent.OpenLobby(e)
+        homeRepository.close()
     }
 }

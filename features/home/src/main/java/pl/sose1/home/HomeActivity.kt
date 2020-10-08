@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.observe
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.sose1.base.view.BaseActivity
+import pl.sose1.core.model.lobby.LobbyEvent
 import pl.sose1.home.databinding.ActivityHomeBinding
 import pl.sose1.lobby.LobbyActivity
 
@@ -22,10 +23,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
     private fun onViewEvent(event: HomeViewEvent) {
         when(event) {
             HomeViewEvent.OnClickCreateButton -> configureAlertDialog()
-            is HomeViewEvent.OnClickPositiveButton -> openLobbyActivity()
-            is HomeViewEvent.OnClickConnectButton -> openLobbyActivity()
             is HomeViewEvent.ShowUserNameError -> showUserNameErrorToast()
             is HomeViewEvent.ShowInputFieldError -> showInputFieldErrorToast()
+            is HomeViewEvent.OpenLobby -> openLobbyActivity(event.e)
         }
     }
 
@@ -45,10 +45,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             .show()
     }
 
-    private fun openLobbyActivity() {
+    private fun openLobbyActivity(e: LobbyEvent.Registered) {
+        val intent = Intent(this, LobbyActivity::class.java)
+        intent.putExtra("LOBBY_CODE", e.code)
+        intent.putExtra("LOBBY_ID", e.lobbyId)
+        intent.putExtra("USER_ID", e.user.userId)
+        intent.putExtra("USER_NAME", e.user.name)
+
         startActivity(
-            Intent(this, LobbyActivity::class.java),
-            ActivityOptions.makeSceneTransitionAnimation(this)
+            intent,
+            ActivityOptions
+                .makeSceneTransitionAnimation(this)
                 .toBundle())
+        finish()
     }
 }
