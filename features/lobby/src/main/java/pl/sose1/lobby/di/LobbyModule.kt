@@ -5,5 +5,5 @@ import org.koin.dsl.module
 import pl.sose1.lobby.LobbyViewModel
 
 val lobbyModule = module {
-    viewModel { (lobbyId: String) -> LobbyViewModel(lobbyId) }
+    viewModel { (lobbyId: String, userId: String, creatorId: String) -> LobbyViewModel(lobbyId, userId, creatorId) }
 }

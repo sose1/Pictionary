@@ -51,6 +51,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
         intent.putExtra("LOBBY_ID", e.lobbyId)
         intent.putExtra("USER_ID", e.user.userId)
         intent.putExtra("USER_NAME", e.user.name)
+        intent.putExtra("CREATOR_ID", e.creatorId)
 
         startActivity(
             intent,

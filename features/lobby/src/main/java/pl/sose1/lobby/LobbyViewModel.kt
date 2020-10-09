@@ -13,7 +13,10 @@ import pl.sose1.core.model.lobby.LobbyEvent
 import pl.sose1.core.repository.LobbyRepository
 import timber.log.Timber
 
-class LobbyViewModel(lobbyId: String): ViewModel(), KoinComponent {
+class LobbyViewModel(
+    lobbyId: String,
+    private val userId: String,
+    private val creatorId: String): ViewModel(), KoinComponent {
 
     private val lobbyRepository by inject<LobbyRepository> {
         parametersOf(lobbyId)
@@ -22,10 +25,12 @@ class LobbyViewModel(lobbyId: String): ViewModel(), KoinComponent {
     val events = SingleLiveData<LobbyViewEvent>()
 
     init {
+        checkCreatorId()
+
         viewModelScope.launch {
             lobbyRepository.messageChannel.receiveAsFlow().collect { e ->
                 when (e) {
-                    is LobbyEvent.Connected -> events.value = LobbyViewEvent.SetUsers(e)
+                    is LobbyEvent.Connected ->  events.value = LobbyViewEvent.SetUsers(e)
 
                 }
             }
@@ -37,8 +42,13 @@ class LobbyViewModel(lobbyId: String): ViewModel(), KoinComponent {
         lobbyRepository.close()
     }
 
-    fun connectToLobby(userId: String) {
+    fun connectToLobby() {
         Timber.d("connectToLobby")
         lobbyRepository.connectToLobby(userId)
+    }
+
+    private fun checkCreatorId() {
+        if (userId != creatorId)
+            events.value = LobbyViewEvent.StartButtonIsInvisible
     }
 }

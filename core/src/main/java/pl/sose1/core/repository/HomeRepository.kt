@@ -62,7 +62,7 @@ class HomeRepository {
             val response = Gson().fromJson(text, LobbyEvent.Registered::class.java)
 
             GlobalScope.launch {
-                messageChannel.send(LobbyEvent.Registered(response.user, response.lobbyId, response.code))
+                messageChannel.send(LobbyEvent.Registered(response.user, response.lobbyId, response.code, response.creatorId))
             }
         }
 
