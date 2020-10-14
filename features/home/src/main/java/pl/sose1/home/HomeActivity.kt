@@ -58,6 +58,5 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             ActivityOptions
                 .makeSceneTransitionAnimation(this)
                 .toBundle())
-        finish()
     }
 }

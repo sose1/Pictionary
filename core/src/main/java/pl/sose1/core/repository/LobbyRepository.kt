@@ -14,15 +14,15 @@ import timber.log.Timber
 class LobbyRepository(lobbyId: String) {
     private val client = OkHttpClient()
     private val request = Request.Builder().url("ws://192.168.0.9:8080/lobby/$lobbyId").build()
-    private val webSocket = client.newWebSocket(request, SocketListener())
+    private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<LobbyEvent>(1)
 
     fun connectToLobby(userId: String) {
+        webSocket = client.newWebSocket(request, SocketListener())
         webSocket.send(
             LobbyConnectRequest(userId,
                 RequestEventName.CONNECT.name).toJSON())
-        client.dispatcher.executorService.shutdown()
     }
 
     fun close() {
@@ -43,7 +43,7 @@ class LobbyRepository(lobbyId: String) {
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             super.onFailure(webSocket, t, response)
-            Timber.d("onFailure: ${t.message}, $response")
+            Timber.d("onFailure: ${t.message}, $response, ${t.cause}")
 
         }
 

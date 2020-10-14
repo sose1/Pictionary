@@ -6,5 +6,5 @@ import pl.sose1.core.repository.LobbyRepository
 
 val coreModule = module {
     single { HomeRepository() }
-    single { (lobbyId: String) -> LobbyRepository(lobbyId) }
+    factory { (lobbyId: String) -> LobbyRepository(lobbyId) }
 }

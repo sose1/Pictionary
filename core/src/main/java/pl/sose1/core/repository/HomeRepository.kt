@@ -21,7 +21,6 @@ class HomeRepository {
         webSocket.send(
             LobbyRegisterRequest(userNameString,
                 RequestEventName.CREATE_LOBBY.name).toJSON())
-        client.dispatcher.executorService.shutdown()
     }
 
     fun registerToLobby(userNameString: String, code: String) {
@@ -29,8 +28,6 @@ class HomeRepository {
             LobbyRegisterRequest(userNameString,
                 RequestEventName.REGISTER_TO_LOBBY.name,
                 code).toJSON())
-        client.dispatcher.executorService.shutdown()
-
     }
 
     fun close() {
@@ -60,7 +57,6 @@ class HomeRepository {
             Timber.d("onMessage-TEXT: $text")
 
             val response = Gson().fromJson(text, LobbyEvent.Registered::class.java)
-
             GlobalScope.launch {
                 messageChannel.send(LobbyEvent.Registered(response.user, response.lobbyId, response.code, response.creatorId))
             }

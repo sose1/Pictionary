@@ -62,6 +62,5 @@ class HomeViewModel(
 
     private fun openLobbyActivity(e: LobbyEvent.Registered) {
         events.value = HomeViewEvent.OpenLobby(e)
-        homeRepository.close()
     }
 }

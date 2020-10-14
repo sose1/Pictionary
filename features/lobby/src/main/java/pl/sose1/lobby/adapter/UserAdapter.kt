@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.sose1.core.model.user.User
 import pl.sose1.lobby.databinding.ItemUserBinding
+import timber.log.Timber
 
 class UserAdapter: RecyclerView.Adapter<UserViewHolder>() {
 
@@ -24,6 +25,8 @@ class UserAdapter: RecyclerView.Adapter<UserViewHolder>() {
 
     fun setUsers(users: List<User>) {
         this.users = users
+        Timber.d("SetUsers: $users")
+
         notifyDataSetChanged()
     }
 }

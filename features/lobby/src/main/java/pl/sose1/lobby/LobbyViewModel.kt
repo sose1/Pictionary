@@ -11,7 +11,6 @@ import org.koin.core.parameter.parametersOf
 import pl.sose1.base.SingleLiveData
 import pl.sose1.core.model.lobby.LobbyEvent
 import pl.sose1.core.repository.LobbyRepository
-import timber.log.Timber
 
 class LobbyViewModel(
     lobbyId: String,
@@ -43,7 +42,6 @@ class LobbyViewModel(
     }
 
     fun connectToLobby() {
-        Timber.d("connectToLobby")
         lobbyRepository.connectToLobby(userId)
     }
 
