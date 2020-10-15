@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.lobby.LobbyEvent
+import pl.sose1.core.model.response.Registered
 import pl.sose1.core.repository.HomeRepository
 
 class HomeViewModel(
@@ -21,7 +21,8 @@ class HomeViewModel(
         viewModelScope.launch {
             homeRepository.messageChannel.receiveAsFlow().collect { e ->
                 when (e) {
-                    is LobbyEvent.Registered -> openLobbyActivity(e)
+                    is Registered -> events.value = HomeViewEvent.OpenLobby(e)
+                    else -> { }
                 }
             }
         }
@@ -58,9 +59,5 @@ class HomeViewModel(
     override fun onCleared() {
         super.onCleared()
         homeRepository.close()
-    }
-
-    private fun openLobbyActivity(e: LobbyEvent.Registered) {
-        events.value = HomeViewEvent.OpenLobby(e)
     }
 }

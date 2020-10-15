@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.observe
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.sose1.base.view.BaseActivity
-import pl.sose1.core.model.lobby.LobbyEvent
+import pl.sose1.core.model.response.Registered
 import pl.sose1.home.databinding.ActivityHomeBinding
 import pl.sose1.lobby.LobbyActivity
 
@@ -45,7 +45,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             .show()
     }
 
-    private fun openLobbyActivity(e: LobbyEvent.Registered) {
+    private fun openLobbyActivity(e: Registered) {
         val intent = Intent(this, LobbyActivity::class.java)
         intent.putExtra("LOBBY_CODE", e.code)
         intent.putExtra("LOBBY_ID", e.lobbyId)

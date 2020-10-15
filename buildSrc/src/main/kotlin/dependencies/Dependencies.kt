@@ -13,6 +13,8 @@ object Releases {
 
 private object Versions {
     const val kotlin = "1.4.10"
+    const val kotlinxSerialization = "1.0.0"
+
     const val coroutines = "1.3.8"
     const val navigation = "2.3.0"
     const val timber = "4.7.1"
@@ -24,12 +26,11 @@ private object Versions {
     const val material = "1.1.0"
     const val recyclerView = "1.1.0"
     const val okHttp = "4.9.0"
-    const val gson = "2.8.6"
 }
 
 object Libraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-
+    const val kotlinxSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
     //android
     const val core = "androidx.core:core-ktx:${Versions.core}"
 
@@ -52,7 +53,6 @@ object Libraries {
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
-    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 }
 
 /*object TestLibraries {
