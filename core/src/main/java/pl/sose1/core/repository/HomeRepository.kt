@@ -20,15 +20,12 @@ class HomeRepository {
     private val webSocket = client.newWebSocket(request, SocketListener())
     val messageChannel = Channel<LobbyResponse>(1)
 
-    private lateinit var lobbyRequest: LobbyRequest
     fun createLobby(userNameString: String) {
-        lobbyRequest = Create(userNameString)
-        webSocket.send(Json.encodeToString(lobbyRequest))
+        webSocket.send(Json.encodeToString(Create(userNameString) as LobbyRequest))
     }
 
     fun registerToLobby(userNameString: String, code: String) {
-        lobbyRequest = Register(userNameString, code)
-        webSocket.send(Json.encodeToString(lobbyRequest))
+        webSocket.send(Json.encodeToString(Register(userNameString, code) as LobbyRequest))
     }
 
     fun close() {

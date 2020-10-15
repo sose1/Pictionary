@@ -20,13 +20,10 @@ class LobbyRepository(lobbyId: String) {
 
     val messageChannel = Channel<LobbyResponse>(1)
 
-    private lateinit var lobbyRequest: LobbyRequest
 
     fun connectToLobby(userId: String) {
         webSocket = client.newWebSocket(request, SocketListener())
-
-        lobbyRequest = Connect(userId)
-        webSocket.send(Json.encodeToString(lobbyRequest))
+        webSocket.send(Json.encodeToString(Connect(userId) as LobbyRequest))
     }
 
     fun close() {
