@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.response.Registered
+import pl.sose1.core.model.lobby.Registered
 import pl.sose1.core.repository.HomeRepository
 
 class HomeViewModel(

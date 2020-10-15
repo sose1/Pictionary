@@ -9,7 +9,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.response.Users
+import pl.sose1.core.model.lobby.Users
 import pl.sose1.core.repository.LobbyRepository
 
 class LobbyViewModel(

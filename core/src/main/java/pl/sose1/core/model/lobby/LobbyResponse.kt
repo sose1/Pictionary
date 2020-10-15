@@ -1,4 +1,4 @@
-package pl.sose1.core.model.response
+package pl.sose1.core.model.lobby
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

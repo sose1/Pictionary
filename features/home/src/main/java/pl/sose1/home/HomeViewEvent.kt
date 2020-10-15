@@ -1,6 +1,6 @@
 package pl.sose1.home
 
-import pl.sose1.core.model.response.Registered
+import pl.sose1.core.model.lobby.Registered
 
 sealed class HomeViewEvent {
     object OnClickCreateButton : HomeViewEvent()

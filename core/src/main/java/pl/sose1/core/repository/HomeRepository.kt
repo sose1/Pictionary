@@ -10,8 +10,8 @@ import okhttp3.*
 import okio.ByteString
 import pl.sose1.core.model.lobby.Create
 import pl.sose1.core.model.lobby.LobbyRequest
+import pl.sose1.core.model.lobby.LobbyResponse
 import pl.sose1.core.model.lobby.Register
-import pl.sose1.core.model.response.LobbyResponse
 import timber.log.Timber
 
 class HomeRepository {

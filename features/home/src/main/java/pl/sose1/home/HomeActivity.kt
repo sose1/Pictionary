@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.observe
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.sose1.base.view.BaseActivity
-import pl.sose1.core.model.response.Registered
+import pl.sose1.core.model.lobby.Registered
 import pl.sose1.home.databinding.ActivityHomeBinding
 import pl.sose1.lobby.LobbyActivity
 

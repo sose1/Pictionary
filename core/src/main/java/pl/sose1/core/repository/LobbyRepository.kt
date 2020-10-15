@@ -10,7 +10,7 @@ import okhttp3.*
 import okio.ByteString
 import pl.sose1.core.model.lobby.Connect
 import pl.sose1.core.model.lobby.LobbyRequest
-import pl.sose1.core.model.response.LobbyResponse
+import pl.sose1.core.model.lobby.LobbyResponse
 import timber.log.Timber
 
 class LobbyRepository(lobbyId: String) {
