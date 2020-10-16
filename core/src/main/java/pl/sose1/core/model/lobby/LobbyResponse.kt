@@ -22,3 +22,9 @@ class Registered(
 class Users(
         val users: List<User>
 ) : LobbyResponse()
+
+@Serializable
+@SerialName("NewCreator")
+class NewCreator(
+        val creatorId: String
+) : LobbyResponse()

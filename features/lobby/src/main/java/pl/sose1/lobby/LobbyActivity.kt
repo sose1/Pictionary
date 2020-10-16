@@ -40,6 +40,7 @@ class LobbyActivity : BaseActivity<ActivityLobbyBinding, LobbyViewModel>(layoutI
     private fun onViewEvent(event: LobbyViewEvent) {
         when (event) {
             LobbyViewEvent.StartButtonIsInvisible -> startButtonIsInvisible()
+            LobbyViewEvent.StartButtonIsVisible -> startButtonIsVisible()
             is LobbyViewEvent.SetUsers -> userAdapter.setUsers(event.e.users)
 
         }
@@ -47,5 +48,9 @@ class LobbyActivity : BaseActivity<ActivityLobbyBinding, LobbyViewModel>(layoutI
 
     private fun startButtonIsInvisible() {
         binding.startBtn.visibility = View.GONE
+    }
+
+    private fun startButtonIsVisible() {
+        binding.startBtn.visibility = View.VISIBLE
     }
 }
