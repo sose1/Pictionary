@@ -12,37 +12,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextUserName"
-            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/nickname"
-            android:inputType="text"
-            android:textSize="36sp"
-            android:text="@={viewModel.userName}"
             app:layout_constraintBottom_toTopOf="@+id/editTextCode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/nickname"
+                android:inputType="text"
+                android:textSize="36sp"
+                android:text="@={viewModel.userName}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editTextCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:ems="10"
             android:gravity="center"
-            android:hint="@string/code"
-            android:inputType="textCapCharacters"
-            android:textAllCaps="true"
-            android:text="@={viewModel.lobbyCode}"
-            android:textSize="24sp"
+
             app:layout_constraintBottom_toTopOf="@+id/connect_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/code"
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:text="@={viewModel.lobbyCode}"
+                android:textSize="24sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/connect_btn"
@@ -68,6 +82,5 @@
             app:layout_constraintEnd_toEndOf="@+id/connect_btn"
             app:layout_constraintStart_toStartOf="@+id/connect_btn"
             app:layout_constraintTop_toBottomOf="@+id/connect_btn" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,12 +21,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
     }
 
     private fun onViewEvent(event: HomeViewEvent) {
-        when(event) {
+        when (event) {
             HomeViewEvent.OnClickCreateButton -> configureAlertDialog()
             is HomeViewEvent.ShowUserNameError -> showUserNameErrorToast()
             is HomeViewEvent.ShowInputFieldError -> showInputFieldErrorToast()
             is HomeViewEvent.OpenLobby -> openLobbyActivity(event.e)
+            is HomeViewEvent.ShowNotFoundError -> showNotFoundError()
         }
+    }
+
+    private fun showNotFoundError() {
+        Toast.makeText(this, R.string.not_found_lobby, Toast.LENGTH_SHORT).show()
     }
 
     private fun showInputFieldErrorToast() {

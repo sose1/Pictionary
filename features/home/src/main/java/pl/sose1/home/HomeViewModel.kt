@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
+import pl.sose1.core.model.lobby.Error
 import pl.sose1.core.model.lobby.Registered
 import pl.sose1.core.repository.HomeRepository
 
@@ -22,6 +23,9 @@ class HomeViewModel(
             homeRepository.messageChannel.receiveAsFlow().collect { e ->
                 when (e) {
                     is Registered -> events.value = HomeViewEvent.OpenLobby(e)
+                    is Error -> if (e.errorCode == 404) {
+                        events.value = HomeViewEvent.ShowNotFoundError
+                    }
                     else -> { }
                 }
             }

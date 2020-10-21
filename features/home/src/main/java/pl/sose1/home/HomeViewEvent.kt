@@ -6,5 +6,6 @@ sealed class HomeViewEvent {
     object OnClickCreateButton : HomeViewEvent()
     object ShowUserNameError : HomeViewEvent()
     object ShowInputFieldError : HomeViewEvent()
+    object ShowNotFoundError : HomeViewEvent()
     class OpenLobby(val e: Registered) : HomeViewEvent()
 }

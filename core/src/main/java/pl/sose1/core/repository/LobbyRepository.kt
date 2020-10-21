@@ -15,7 +15,7 @@ import timber.log.Timber
 
 class LobbyRepository(lobbyId: String) {
     private val client = OkHttpClient()
-    private val request = Request.Builder().url("ws://192.168.0.9:8080/lobby/$lobbyId").build()
+    private val request = Request.Builder().url("ws://192.168.0.2:8080/lobby/$lobbyId").build()
     private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<LobbyResponse>(1)
