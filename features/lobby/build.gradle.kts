@@ -13,6 +13,7 @@ dependencies {
 
     implementation(Libraries.appCompat)
     implementation(Libraries.constraintLayout)
+    implementation(Libraries.coordinatorLayout)
     implementation(Libraries.material)
 
     implementation("androidx.legacy:legacy-support-v4:1.0.0")

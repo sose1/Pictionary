@@ -1,4 +1,4 @@
-package pl.sose1.lobby.adapter
+package pl.sose1.lobby.adapter.user
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

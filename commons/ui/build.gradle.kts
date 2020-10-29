@@ -13,4 +13,6 @@ dependencies {
 
     implementation(Libraries.constraintLayout)
     implementation(Libraries.recyclerView)
+    implementation(Libraries.material)
+
 }

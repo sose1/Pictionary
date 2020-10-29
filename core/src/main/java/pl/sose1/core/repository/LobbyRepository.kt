@@ -11,6 +11,7 @@ import okio.ByteString
 import pl.sose1.core.model.lobby.Connect
 import pl.sose1.core.model.lobby.LobbyRequest
 import pl.sose1.core.model.lobby.LobbyResponse
+import pl.sose1.core.model.lobby.Message
 import timber.log.Timber
 
 class LobbyRepository(lobbyId: String) {
@@ -29,6 +30,10 @@ class LobbyRepository(lobbyId: String) {
     fun close() {
         webSocket.cancel()
         messageChannel.cancel()
+    }
+
+    fun sendMessage(userId: String, messageContent: String, userName: String) {
+        webSocket.send(Json.encodeToString(Message(messageContent, userId, "send", userName) as LobbyRequest))
     }
 
     inner class SocketListener : WebSocketListener() {

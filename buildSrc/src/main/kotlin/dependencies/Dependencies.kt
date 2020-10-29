@@ -21,6 +21,7 @@ private object Versions {
     const val koin = "2.1.5"
     const val core = "1.3.1"
     const val constraintLayout = "2.0.0-beta8"
+    const val coordinatorLayout = "1.1.0"
     const val databindingCompiler = "4.0.1"
     const val appCompat = "1.1.0"
     const val material = "1.1.0"
@@ -37,6 +38,7 @@ object Libraries {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinatorLayout}"
     const val databinding = "androidx.databinding:databinding-compiler:${Versions.databindingCompiler}"
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"

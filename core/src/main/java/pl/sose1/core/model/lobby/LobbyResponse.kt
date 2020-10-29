@@ -34,3 +34,9 @@ class NewCreator(
 class Error(
         val errorCode: Int
 ) : LobbyResponse()
+
+@Serializable
+@SerialName("Messages")
+class Messages(
+        val messages: List<Message>
+) : LobbyResponse()

@@ -25,3 +25,13 @@ class Create(
 class Connect(
         val userId: String,
 ) : LobbyRequest()
+
+@Serializable
+@SerialName("Message")
+class Message(
+        val text: String,
+        val authorId: String,
+        var messageType: String,
+        val authorName: String,
+) : LobbyRequest()
+

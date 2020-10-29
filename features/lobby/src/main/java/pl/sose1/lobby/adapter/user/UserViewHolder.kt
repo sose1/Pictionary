@@ -1,4 +1,4 @@
-package pl.sose1.lobby.adapter
+package pl.sose1.lobby.adapter.user
 
 import androidx.recyclerview.widget.RecyclerView
 import pl.sose1.core.model.user.User
