@@ -10,7 +10,7 @@ dependencies {
     implementation(project(":commons:base"))
     implementation(project(":commons:ui"))
     implementation(project(":core"))
-    implementation(project(":features:lobby"))
+    implementation(project(":features:game"))
 
     implementation(Libraries.appCompat)
     implementation(Libraries.constraintLayout)

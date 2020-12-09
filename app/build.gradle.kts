@@ -44,7 +44,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":features:home"))
-    implementation(project(":features:lobby"))
+    implementation(project(":features:game"))
 
     implementation(Libraries.appCompat)
 

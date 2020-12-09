@@ -4,8 +4,8 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import pl.sose1.core.di.coreModule
+import pl.sose1.game.di.gameModule
 import pl.sose1.home.di.homeModule
-import pl.sose1.lobby.di.lobbyModule
 import timber.log.Timber
 
 class App : Application() {
@@ -27,7 +27,7 @@ class App : Application() {
                 listOf(
                     coreModule,
                     homeModule,
-                    lobbyModule
+                    gameModule
                 )
             )
         }

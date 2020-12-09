@@ -1,4 +1,4 @@
-include(":features:lobby")
+include(":features:game")
 include(":commons:ui")
 include(":commons:base")
 include(":commons")

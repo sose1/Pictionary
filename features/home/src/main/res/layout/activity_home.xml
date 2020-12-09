@@ -53,7 +53,7 @@
                 android:hint="@string/code"
                 android:inputType="textCapCharacters"
                 android:textAllCaps="true"
-                android:text="@={viewModel.lobbyCode}"
+                android:text="@={viewModel.gameCode}"
                 android:textSize="24sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 

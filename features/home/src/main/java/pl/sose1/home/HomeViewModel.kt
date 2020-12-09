@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.lobby.Error
-import pl.sose1.core.model.lobby.Registered
 import pl.sose1.core.repository.HomeRepository
 
 class HomeViewModel(
@@ -16,18 +14,12 @@ class HomeViewModel(
 
     val events = SingleLiveData<HomeViewEvent>()
     val userName = SingleLiveData<String>()
-    val lobbyCode = SingleLiveData<String>()
+    val gameCode = SingleLiveData<String>()
 
     init {
         viewModelScope.launch {
-            homeRepository.messageChannel.receiveAsFlow().collect { e ->
-                when (e) {
-                    is Registered -> events.value = HomeViewEvent.OpenLobby(e)
-                    is Error -> if (e.errorCode == 404) {
-                        events.value = HomeViewEvent.ShowNotFoundError
-                    }
-                    else -> { }
-                }
+            homeRepository.messageChannel.receiveAsFlow().collect {
+                events.value = userName.value?.let { userName -> HomeViewEvent.OpenLobby(it.id, userName) }
             }
         }
     }
@@ -38,11 +30,11 @@ class HomeViewModel(
 
     fun onCLickConnectButton() {
         val userNameString = userName.value
-        val lobbyCodeString = lobbyCode.value
+        val gameCodeString = gameCode.value
 
         viewModelScope.launch {
-            if (userNameString != null && lobbyCodeString != null) {
-                homeRepository.registerToLobby(userNameString, lobbyCodeString)
+            if (userNameString != null && gameCodeString != null) {
+                homeRepository.getGameByCode(gameCodeString)
             } else {
                 events.value = HomeViewEvent.ShowInputFieldError
             }
@@ -53,7 +45,7 @@ class HomeViewModel(
         val userNameString = userName.value
         viewModelScope.launch {
             if (userNameString != null) {
-                homeRepository.createLobby(userNameString)
+                homeRepository.getEmptyGame()
             } else {
                 events.value = HomeViewEvent.ShowUserNameError
             }
