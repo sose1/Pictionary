@@ -20,11 +20,11 @@ dependencies {
 
     implementation(Libraries.navigationFragment)
     implementation(Libraries.navigation)
-
     implementation(Libraries.coroutines)
     implementation(Libraries.coroutinesAndroid)
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
 
     kapt(Libraries.databinding)
 }

@@ -50,7 +50,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
     }
 
     private fun openGameActivity(gameId: String, userName: String) {
-
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("GAME_ID", gameId)
         intent.putExtra("USER_NAME", userName)

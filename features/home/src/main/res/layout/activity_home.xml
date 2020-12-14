@@ -7,80 +7,70 @@
             name="viewModel"
             type="pl.sose1.home.HomeViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextUserName"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
+        <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/editTextCode"
+            android:layout_marginTop="24dp"
+            android:elevation="8dp"
+            android:background="@drawable/shape_button"
+            android:gravity="center|center_horizontal"
+            android:text="@string/new_game"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:onClick="@{() -> viewModel.onClickCreateButton()}"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+  
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:elevation="8dp"
+            android:onClick="@{() -> viewModel.onCLickConnectButton()}"
+            android:background="@drawable/shape_button"
+            android:gravity="center|center_horizontal"
+            android:text="@string/connect"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <EditText
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:elevation="8dp"
+            android:background="@drawable/shape_input_text"
+            android:gravity="center|center_horizontal"
+            android:hint="@string/nickname"
+            android:textSize="20sp"
+            android:text="@={viewModel.userName}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/nickname"
-                android:inputType="text"
-                android:textSize="36sp"
-                android:text="@={viewModel.userName}"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-
-            app:layout_constraintBottom_toTopOf="@+id/connect_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/code"
-                android:inputType="textCapCharacters"
-                android:textAllCaps="true"
-                android:text="@={viewModel.gameCode}"
-                android:textSize="24sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <Button
-            android:id="@+id/connect_btn"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onCLickConnectButton()}"
-            android:text="@string/connect"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editTextCode"
-            app:layout_constraintStart_toStartOf="@+id/editTextCode"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/create_btn"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onClickCreateButton()}"
-            android:text="@string/create"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/connect_btn"
-            app:layout_constraintStart_toStartOf="@+id/connect_btn"
-            app:layout_constraintTop_toBottomOf="@+id/connect_btn" />
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:elevation="8dp"
+            android:background="@drawable/shape_input_text"
+            android:gravity="center|center_horizontal"
+            android:hint="@string/code"
+            android:text="@={viewModel.gameCode}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

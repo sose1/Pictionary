@@ -53,7 +53,6 @@ object Libraries {
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
-
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
 }
 
