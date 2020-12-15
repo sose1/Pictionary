@@ -3,7 +3,8 @@
     package="pl.sose1.home">
 
     <application>
-        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".HomeActivity"></activity>
     </application>
 

@@ -50,6 +50,6 @@ dependencies {
 
     implementation(Libraries.timber)
     implementation(Libraries.koin)
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+    implementation(Libraries.constraintLayout)
+    implementation(Libraries.material)
 }

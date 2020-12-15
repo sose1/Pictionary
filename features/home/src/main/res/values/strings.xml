@@ -12,5 +12,6 @@
     <string name="start">Start</string>
     <string name="nickname">NAZWA GRACZA</string>
     <string name="input_field_is_empty">Uzupełnj wszystkie pola</string>
-    <string name="not_found_gry">Nie znaleziono gry</string>
+    <string name="not_found_game">Nie znaleziono gry</string>
+    <string name="info_about_code">Kod jest wymagany tylko do połączenia się z istniejącą grą.</string>
 </resources>

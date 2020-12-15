@@ -2,9 +2,11 @@ package pl.sose1.home
 
 import android.app.ActivityOptions
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.observe
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.viewModel
 import pl.sose1.base.view.BaseActivity
 import pl.sose1.game.GameActivity
@@ -26,19 +28,30 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             is HomeViewEvent.ShowInputFieldError -> showInputFieldErrorToast()
             is HomeViewEvent.OpenLobby -> openGameActivity(event.gameId, event.userName)
             is HomeViewEvent.ShowNotFoundError -> showNotFoundError()
+            HomeViewEvent.onClickInfoAboutCodeButton -> showInfoAboutCode()
         }
     }
 
+    private fun showInfoAboutCode() {
+        AlertDialog.Builder(this)
+                .setTitle(R.string.info_about_code)
+                .setPositiveButton(android.R.string.ok) {_, _ -> }
+                .show()
+    }
+
     private fun showNotFoundError() {
-        Toast.makeText(this, R.string.not_found_gry, Toast.LENGTH_SHORT).show()
+        closeKeyboard()
+        createSnackBarInfo(R.string.not_found_game)
     }
 
     private fun showInputFieldErrorToast() {
-        Toast.makeText(this, R.string.input_field_is_empty, Toast.LENGTH_SHORT).show()
+        closeKeyboard()
+        createSnackBarInfo(R.string.input_field_is_empty)
     }
 
     private fun showUserNameErrorToast() {
-        Toast.makeText(this, R.string.user_name_is_empty, Toast.LENGTH_SHORT).show()
+        closeKeyboard()
+        createSnackBarInfo(R.string.user_name_is_empty)
     }
 
     private fun configureAlertDialog() {
@@ -59,5 +72,16 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             ActivityOptions
                 .makeSceneTransitionAnimation(this)
                 .toBundle())
+    }
+
+    private fun createSnackBarInfo(stringId: Int) {
+        Snackbar
+            .make(binding.homeActivity, stringId, Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    private fun closeKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.applicationWindowToken, 0)
     }
 }

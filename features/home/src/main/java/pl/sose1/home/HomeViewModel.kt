@@ -33,7 +33,7 @@ class HomeViewModel(
         val gameCodeString = gameCode.value
 
         viewModelScope.launch {
-            if (userNameString != null && gameCodeString != null) {
+            if (!userNameString.isNullOrBlank() && !gameCodeString.isNullOrBlank()) {
                 homeRepository.getGameByCode(gameCodeString)
             } else {
                 events.value = HomeViewEvent.ShowInputFieldError
@@ -44,12 +44,16 @@ class HomeViewModel(
     fun onClickPositiveButton() {
         val userNameString = userName.value
         viewModelScope.launch {
-            if (userNameString != null) {
+            if (!userNameString.isNullOrBlank()) {
                 homeRepository.getEmptyGame()
             } else {
                 events.value = HomeViewEvent.ShowUserNameError
             }
         }
+    }
+
+    fun onClickInfoAboutCodeButton() {
+        events.value = HomeViewEvent.onClickInfoAboutCodeButton
     }
 
     override fun onCleared() {

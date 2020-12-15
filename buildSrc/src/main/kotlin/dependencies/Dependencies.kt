@@ -24,7 +24,7 @@ private object Versions {
     const val coordinatorLayout = "1.1.0"
     const val databindingCompiler = "4.0.1"
     const val appCompat = "1.1.0"
-    const val material = "1.1.0"
+    const val material = "1.2.0"
     const val recyclerView = "1.1.0"
     const val okHttp = "4.9.0"
 }

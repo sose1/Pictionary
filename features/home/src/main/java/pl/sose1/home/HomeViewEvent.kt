@@ -2,6 +2,7 @@ package pl.sose1.home
 
 sealed class HomeViewEvent {
     object OnClickCreateButton : HomeViewEvent()
+    object onClickInfoAboutCodeButton : HomeViewEvent()
     object ShowUserNameError : HomeViewEvent()
     object ShowInputFieldError : HomeViewEvent()
     object ShowNotFoundError : HomeViewEvent()
