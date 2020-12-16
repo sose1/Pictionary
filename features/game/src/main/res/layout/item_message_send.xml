@@ -15,28 +15,31 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/message2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="false"
-            android:text="@{message.content}"
-            android:textColor="@android:color/primary_text_light_nodisable"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/author"
-            tools:ignore="MissingConstraints"
-            tools:text="zielony krurde " />
-
-        <TextView
             android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="false"
             android:text="Ty: "
-            android:textColor="@android:color/primary_text_light_nodisable"
-            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="uzytkownik :" />
+            tools:textColor="@color/black"
+            tools:text="uzytkownik: " />
+
+        <TextView
+            android:id="@+id/message2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="@{message.content}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/author"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="@color/black"
+            tools:text="zielony krurdec to był , no kurdi xD zd da elo siema co tam" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

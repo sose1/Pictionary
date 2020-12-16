@@ -9,7 +9,10 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.game.*
+import pl.sose1.core.model.game.GameById
+import pl.sose1.core.model.game.Message
+import pl.sose1.core.model.game.NewOwner
+import pl.sose1.core.model.game.NewUser
 import pl.sose1.core.model.user.User
 import pl.sose1.core.repository.GameRepository
 
@@ -30,7 +33,6 @@ class GameViewModel(
             gameRepository.messageChannel.receiveAsFlow().collect { e ->
                 when (e) {
                     is NewUser -> user = e.user
-                    is Users ->  events.value = GameViewEvent.SetUsers(e.users)
                     is NewOwner -> TODO()
                     is Message -> events.value = GameViewEvent.SetMessage(e, user)
                     is GameById -> events.value = GameViewEvent.SetGameCodeInSubtitle(e.game.code)

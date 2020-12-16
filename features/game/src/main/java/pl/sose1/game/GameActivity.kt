@@ -7,7 +7,6 @@ import pl.sose1.base.view.BaseActivity
 import pl.sose1.core.model.game.Message
 import pl.sose1.core.model.user.User
 import pl.sose1.game.adapter.message.MessageAdapter
-import pl.sose1.game.adapter.user.UserAdapter
 import pl.sose1.game.databinding.ActivityGameBinding
 
 
@@ -15,8 +14,8 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
 
     private lateinit var gameId: String
 
-    private val userAdapter = UserAdapter()
     private val messageAdapter = MessageAdapter()
+
 
     override val viewModel by viewModel<GameViewModel> {
         parametersOf(gameId)
@@ -30,26 +29,24 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         binding.viewModel = viewModel
         viewModel.events.observe(this, this::onViewEvent)
 
-        binding.users.adapter = userAdapter
-
         binding.messages.setHasFixedSize(true)
         binding.messages.adapter = messageAdapter
 
         viewModel.connectToGame(userName)
+        viewModel.getGameById()
+
+        val paintingView = binding.paintingView
+        paintingView.post {
+            paintingView.initialize()
+        }
     }
 
     private fun onViewEvent(event: GameViewEvent) {
         when (event) {
             GameViewEvent.ClearMessageContentText -> clearMessageContentText()
-            is GameViewEvent.SetUsers -> setUsers(event.users)
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
-            is GameViewEvent.SetGameCodeInSubtitle -> this.supportActionBar?.subtitle = event.code
+            is GameViewEvent.SetGameCodeInSubtitle -> binding.gameCode.text = event.code
         }
-    }
-
-    private fun setUsers(users: List<User>) {
-        viewModel.getGameById()
-        userAdapter.setUsers(users)
     }
 
     private fun setMessages(message: Message, user: User) {

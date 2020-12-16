@@ -5,7 +5,7 @@
     <application>
         <activity
             android:name=".GameActivity"
-            android:label="@string/game_code" />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

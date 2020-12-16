@@ -5,7 +5,8 @@
     <application>
         <activity android:name=".SplashActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
