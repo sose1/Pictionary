@@ -1,5 +1,6 @@
 package pl.sose1.game
 
+import android.graphics.Color
 import androidx.lifecycle.observe
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -8,6 +9,7 @@ import pl.sose1.core.model.game.Message
 import pl.sose1.core.model.user.User
 import pl.sose1.game.adapter.message.MessageAdapter
 import pl.sose1.game.databinding.ActivityGameBinding
+import top.defaults.colorpicker.ColorPickerPopup
 
 
 class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId = R.layout.activity_game) {
@@ -46,6 +48,7 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
             GameViewEvent.ClearMessageContentText -> clearMessageContentText()
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.SetGameCodeInSubtitle -> binding.gameCode.text = event.code
+            GameViewEvent.ChangeBrushColor -> changeBrushColor()
         }
     }
 
@@ -54,10 +57,25 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         val messagesSize = binding.messages.adapter!!.itemCount
 
         if (messagesSize != 0)
-        binding.messages.smoothScrollToPosition(messagesSize - 1)
+            binding.messages.smoothScrollToPosition(messagesSize - 1)
     }
 
     private fun clearMessageContentText() {
         binding.messageContent.text.clear()
+    }
+
+    private fun changeBrushColor() {
+        ColorPickerPopup.Builder(this)
+                .initialColor(Color.WHITE)
+                .okTitle("Wybierz")
+                .cancelTitle("Anuluj")
+                .showIndicator(true)
+                .showValue(false)
+                .build()
+                .show(object : ColorPickerPopup.ColorPickerObserver() {
+                    override fun onColorPicked(color: Int) {
+                        binding.paintingView.changeBrushColor(color)
+                    }
+                })
     }
 }

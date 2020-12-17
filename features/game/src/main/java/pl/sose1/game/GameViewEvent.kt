@@ -7,4 +7,5 @@ sealed class GameViewEvent {
     class SetMessage(val message: Message, val user: User) : GameViewEvent()
     class SetGameCodeInSubtitle(val code: String) : GameViewEvent()
     object ClearMessageContentText : GameViewEvent()
+    object ChangeBrushColor : GameViewEvent()
 }

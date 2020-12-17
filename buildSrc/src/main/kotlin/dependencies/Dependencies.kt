@@ -27,6 +27,7 @@ private object Versions {
     const val material = "1.2.0"
     const val recyclerView = "1.1.0"
     const val okHttp = "4.9.0"
+    const val colorPicker = "1.1.6"
 }
 
 object Libraries {
@@ -54,6 +55,8 @@ object Libraries {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+
+    const val colorPicker = "com.github.duanhong169:colorpicker:${Versions.colorPicker}"
 }
 
 /*object TestLibraries {

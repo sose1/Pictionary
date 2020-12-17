@@ -1,4 +1,4 @@
-package pl.sose1.base.view
+package pl.sose1.ui
 
 import android.content.Context
 import android.graphics.*
@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
+import timber.log.Timber
 import kotlin.math.abs
 
 class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -43,11 +44,6 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
         bitmapCanvas.drawColor(Color.WHITE)
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-    }
-
-
     override fun onDraw(canvas: Canvas?) {
         bitmap?.let { canvas?.drawBitmap(it, 0f, 0f, null) }
 
@@ -56,6 +52,8 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
     override fun onTouchEvent(event: MotionEvent): Boolean {
         motionTouchEventX = event.x
         motionTouchEventY = event.y
+
+        Timber.d("X: $motionTouchEventX, Y: $motionTouchEventY")
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> touchStart()
@@ -88,5 +86,9 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
     private fun touchUp() {
         path.reset()
+    }
+
+    fun changeBrushColor(color: Int) {
+        paint.color = color
     }
 }
