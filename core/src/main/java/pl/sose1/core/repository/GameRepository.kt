@@ -8,6 +8,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import okhttp3.*
 import okio.ByteString
+import okio.ByteString.Companion.toByteString
 import pl.sose1.core.model.game.*
 import timber.log.Timber
 import java.io.IOException
@@ -32,6 +33,7 @@ class GameRepository(private val gameId: String) {
     private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<GameResponse>(1)
+    val byteArrayChannel = Channel<ByteArray>(Channel.BUFFERED)
 
     fun connectToGame(userName: String) {
         webSocket = client.newWebSocket(request.addHeader("UserName", userName).build(), SocketListener())
@@ -39,6 +41,11 @@ class GameRepository(private val gameId: String) {
 
     fun sendMessage(messageContent: String) {
         webSocket.send(Json.encodeToString(SendMessage(messageContent) as GameRequest))
+    }
+
+
+    fun sendByteArray(byteArray: ByteArray) {
+        webSocket.send(byteArray.toByteString())
     }
 
     fun getGameById() {
@@ -102,6 +109,11 @@ class GameRepository(private val gameId: String) {
         override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
             super.onMessage(webSocket, bytes)
             Timber.d("onMessage-BYTES: $bytes")
+            val byteArray = bytes.toByteArray()
+
+            GlobalScope.launch {
+                byteArrayChannel.send(byteArray)
+            }
         }
 
         override fun onOpen(webSocket: WebSocket, response: Response) {

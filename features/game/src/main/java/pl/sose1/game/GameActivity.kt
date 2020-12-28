@@ -9,24 +9,29 @@ import pl.sose1.core.model.game.Message
 import pl.sose1.core.model.user.User
 import pl.sose1.game.adapter.message.MessageAdapter
 import pl.sose1.game.databinding.ActivityGameBinding
+import pl.sose1.ui.PaintingView
 import top.defaults.colorpicker.ColorPickerPopup
 
 
 class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId = R.layout.activity_game) {
 
     private lateinit var gameId: String
+    private lateinit var paintingView: PaintingView
 
     private val messageAdapter = MessageAdapter()
 
-
     override val viewModel by viewModel<GameViewModel> {
-        parametersOf(gameId)
+        parametersOf(gameId, paintingView)
     }
 
     override fun onInitDataBinding() {
         gameId = intent.extras?.getString("GAME_ID") ?: throw NullPointerException("GAME_ID is Null")
         val userName = intent.extras?.getString("USER_NAME") ?: throw NullPointerException("USER_NAME is Null")
 
+        paintingView = binding.paintingView
+        paintingView.post {
+            paintingView.initialize()
+        }
 
         binding.viewModel = viewModel
         viewModel.events.observe(this, this::onViewEvent)
@@ -37,10 +42,6 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         viewModel.connectToGame(userName)
         viewModel.getGameById()
 
-        val paintingView = binding.paintingView
-        paintingView.post {
-            paintingView.initialize()
-        }
     }
 
     private fun onViewEvent(event: GameViewEvent) {
@@ -49,6 +50,7 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.SetGameCodeInSubtitle -> binding.gameCode.text = event.code
             GameViewEvent.ChangeBrushColor -> changeBrushColor()
+            is GameViewEvent.DrawBitmap -> paintingView.drawBitmap(event.byteArray)
         }
     }
 
