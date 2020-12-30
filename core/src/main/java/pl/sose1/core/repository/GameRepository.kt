@@ -1,5 +1,6 @@
 package pl.sose1.core.repository
 
+import android.graphics.Bitmap
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import pl.sose1.core.model.game.*
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 
 class GameRepository(private val gameId: String) {
@@ -33,7 +35,7 @@ class GameRepository(private val gameId: String) {
     private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<GameResponse>(1)
-    val byteArrayChannel = Channel<ByteArray>(Channel.BUFFERED)
+    val byteArrayChannel = Channel<ByteArray>(1)
 
     fun connectToGame(userName: String) {
         webSocket = client.newWebSocket(request.addHeader("UserName", userName).build(), SocketListener())
@@ -44,7 +46,10 @@ class GameRepository(private val gameId: String) {
     }
 
 
-    fun sendByteArray(byteArray: ByteArray) {
+    fun sendBitmap(bitmap: Bitmap) {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
         webSocket.send(byteArray.toByteString())
     }
 

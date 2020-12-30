@@ -71,11 +71,12 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <pl.sose1.ui.PaintingView
+            <pl.sose1.ui.painting.PaintingView
                 android:id="@+id/painting_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="4dp"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

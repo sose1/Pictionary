@@ -105,6 +105,8 @@
                     android:textSize="20sp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
+                    android:inputType="textCapCharacters"
+                    android:textAllCaps="true"
                     android:paddingEnd="2dp"
                     android:paddingStart="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -9,4 +9,5 @@ sealed class GameViewEvent {
     class DrawBitmap(val byteArray: ByteArray) : GameViewEvent()
     object ClearMessageContentText : GameViewEvent()
     object ChangeBrushColor : GameViewEvent()
+    class GameStarted(val isStarted: Boolean) : GameViewEvent()
 }

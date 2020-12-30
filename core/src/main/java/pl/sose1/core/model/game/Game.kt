@@ -9,6 +9,7 @@ import pl.sose1.core.model.user.User
 data class Game (
         val owner: User?,
         val id: String,
+        val isStarted: Boolean,
         val code: String,
         val users: List<User>,
         val messages: List<Message>
