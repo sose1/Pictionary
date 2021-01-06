@@ -27,9 +27,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
             is HomeViewEvent.ShowUserNameError -> showUserNameErrorToast()
             is HomeViewEvent.ShowInputFieldError -> showInputFieldErrorToast()
             is HomeViewEvent.OpenLobby -> openGameActivity(event.gameId, event.userName)
-            is HomeViewEvent.ShowNotFoundError -> showNotFoundError()
+            is HomeViewEvent.ShowNotFoundException -> showNotFoundException()
             HomeViewEvent.onClickInfoAboutCodeButton -> showInfoAboutCode()
+            HomeViewEvent.ShowTimeoutException -> showTimeoutException()
         }
+    }
+
+    private fun showTimeoutException() {
+        closeKeyboard()
+        createSnackBarInfo(R.string.timeout_exception)
     }
 
     private fun showInfoAboutCode() {
@@ -39,7 +45,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(layoutId =
                 .show()
     }
 
-    private fun showNotFoundError() {
+    private fun showNotFoundException() {
         closeKeyboard()
         createSnackBarInfo(R.string.not_found_game)
     }

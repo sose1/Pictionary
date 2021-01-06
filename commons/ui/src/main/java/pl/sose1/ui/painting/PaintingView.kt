@@ -6,24 +6,25 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import kotlinx.coroutines.channels.Channel
-import timber.log.Timber
 import kotlin.math.abs
 
 class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    val messageChannel = Channel<ByteArray>(1)
-    var isStarted = false
+    private var motionTouchEventX = 0f
+    private var motionTouchEventY = 0f
+    private var currentX = 0f
+    private var currentY = 0f
+    private var path = Path()
 
-    var drawnListener: PathDrawnListener? = null
-
-    private val touchTolerance = ViewConfiguration.get(context).scaledTouchSlop
-
-    lateinit var bitmap: Bitmap
+    private val touchTolerance = ViewConfiguration
+            .get(context)
+            .scaledTouchSlop
 
     private lateinit var bitmapCanvas: Canvas
+    lateinit var bitmap: Bitmap
 
-    private var path = Path()
+    var isStarted = false
+    var drawnListener: PathDrawnListener? = null
 
     private var paint = Paint().apply {
         color = Color.BLACK
@@ -34,11 +35,6 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
         strokeCap = Paint.Cap.ROUND
         strokeWidth = 10f
     }
-
-    private var motionTouchEventX = 0f
-    private var motionTouchEventY = 0f
-    private var currentX = 0f
-    private var currentY = 0f
 
     fun initialize() {
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -60,7 +56,6 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
         motionTouchEventX = event.x
         motionTouchEventY = event.y
 
-        Timber.d("X: $motionTouchEventX, Y: $motionTouchEventY")
         if (isStarted) {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> touchStart()
@@ -118,4 +113,5 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
         invalidate()
     }
+
 }

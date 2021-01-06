@@ -10,7 +10,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.game.GameById
 import pl.sose1.core.model.game.GameStarted
 import pl.sose1.core.model.game.Message
 import pl.sose1.core.model.game.NewUser
@@ -18,6 +17,7 @@ import pl.sose1.core.model.user.User
 import pl.sose1.core.repository.GameRepository
 import pl.sose1.ui.painting.PathDrawnListener
 import timber.log.Timber
+import java.net.SocketTimeoutException
 
 class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListener {
 
@@ -36,7 +36,6 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
                 when (e) {
                     is NewUser -> user = e.user
                     is Message -> events.value = GameViewEvent.SetMessage(e, user)
-                    is GameById -> events.value = GameViewEvent.SetGameCodeInSubtitle(e.game.code)
                     is GameStarted -> events.value = GameViewEvent.GameStarted(e.isStarted)
                 }
             }
@@ -59,7 +58,14 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
     }
 
     fun getGameById() {
-        gameRepository.getGameById()
+        viewModelScope.launch {
+            try {
+                val game = gameRepository.getGameById()
+                events.value = GameViewEvent.SetGameCode(game.code)
+            }catch (e: Exception) {
+                if (e is SocketTimeoutException) events.value = GameViewEvent.ShowTimeoutException
+            }
+        }
     }
 
     fun sendMessage() {

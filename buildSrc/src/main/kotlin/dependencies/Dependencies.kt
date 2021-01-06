@@ -16,11 +16,12 @@ private object Versions {
     const val kotlinxSerialization = "1.0.0"
 
     const val coroutines = "1.3.8"
+    const val liveData = "2.2.0"
     const val navigation = "2.3.0"
     const val timber = "4.7.1"
     const val koin = "2.1.5"
     const val core = "1.3.1"
-    const val constraintLayout = "2.0.0-beta8"
+    const val constraintLayout = "2.0.1"
     const val coordinatorLayout = "1.1.0"
     const val databindingCompiler = "4.0.1"
     const val appCompat = "1.1.0"
@@ -28,6 +29,8 @@ private object Versions {
     const val recyclerView = "1.1.0"
     const val okHttp = "4.9.0"
     const val colorPicker = "1.1.6"
+    const val retrofit = "2.9.0"
+    const val moshi = "2.4.0"
 }
 
 object Libraries {
@@ -54,7 +57,10 @@ object Libraries {
     const val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveData}"
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val moshi = "com.squareup.retrofit2:converter-moshi:${Versions.moshi}"
 
     const val colorPicker = "com.github.duanhong169:colorpicker:${Versions.colorPicker}"
 }

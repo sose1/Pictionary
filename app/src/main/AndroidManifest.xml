@@ -25,11 +25,11 @@
         <activity android:name="pl.sose1.home.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pl.sose1.home.HomeActivity"></activity>
+        <activity android:name="pl.sose1.home.HomeActivity">
+        </activity>
     </application>
 
 </manifest>

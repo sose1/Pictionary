@@ -1,6 +1,7 @@
 package pl.sose1.game
 
 import android.graphics.Color
+import android.widget.Toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.view.BaseActivity
@@ -49,10 +50,15 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
             GameViewEvent.ClearMessageContentText -> clearMessageContentText()
             GameViewEvent.ChangeBrushColor -> changeBrushColor()
             is GameViewEvent.GameStarted -> paintingView.isStarted = event.isStarted
-            is GameViewEvent.SetGameCodeInSubtitle -> binding.gameCode.text = event.code
+            is GameViewEvent.SetGameCode -> binding.gameCode.text = event.code
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.DrawBitmap -> paintingView.drawBitmap(event.byteArray)
+            GameViewEvent.ShowTimeoutException -> showTimeoutException()
         }
+    }
+
+    private fun showTimeoutException() {
+        Toast.makeText(this, "Przekroczono czas połączenia.", Toast.LENGTH_LONG).show()
     }
 
     private fun setMessages(message: Message, user: User) {

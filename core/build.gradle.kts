@@ -9,6 +9,8 @@ plugins {
 
 dependencies {
     implementation(Libraries.okHttp)
+    implementation(Libraries.retrofit)
+    implementation(Libraries.moshi)
     implementation(Libraries.coroutines)
     implementation(Libraries.coroutinesAndroid)
     implementation(Libraries.kotlinxSerialization)

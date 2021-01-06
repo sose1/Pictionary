@@ -41,7 +41,11 @@ class MessageAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].author.id == user.id ) 1 else if(messages[position].author.name == "SYSTEM") 2 else 3
+        return when {
+            messages[position].author.id == user.id -> 1
+            messages[position].author.name == "SYSTEM" -> 2
+            else -> 3
+        }
     }
 
     override fun getItemCount(): Int = messages.size

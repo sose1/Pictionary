@@ -7,35 +7,31 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import okhttp3.*
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
 import okio.ByteString
 import okio.ByteString.Companion.toByteString
-import pl.sose1.core.model.game.*
+import pl.sose1.core.model.game.GameRequest
+import pl.sose1.core.model.game.GameResponse
+import pl.sose1.core.model.game.SendMessage
+import pl.sose1.core.network.RetrofitBuilder
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
-import java.io.IOException
 
 class GameRepository(private val gameId: String) {
 
-    private var client = OkHttpClient.Builder()
-            .cookieJar(object : CookieJar {
-                private val cookieStore: HashMap<HttpUrl, List<Cookie>> = HashMap()
-                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    cookieStore[url] = cookies
-                }
-
-                override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                    val cookies = cookieStore[url]
-                    return cookies ?: ArrayList()
-                }
-            })
-            .build()
+    private var client = RetrofitBuilder.client
+    private var service = RetrofitBuilder.apiService
 
     private var request = Request.Builder().url("ws://192.168.0.2:8080/game/$gameId")
     private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<GameResponse>(1)
     val byteArrayChannel = Channel<ByteArray>(1)
+
+    suspend fun getGameById() = service.getGameById(gameId)
 
     fun connectToGame(userName: String) {
         webSocket = client.newWebSocket(request.addHeader("UserName", userName).build(), SocketListener())
@@ -51,31 +47,6 @@ class GameRepository(private val gameId: String) {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()
         webSocket.send(byteArray.toByteString())
-    }
-
-    fun getGameById() {
-        request = Request.Builder()
-                .url("http://192.168.0.2:8080/game/$gameId")
-
-        client.newCall(request.build()).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                    val responseString: String = response.body?.string().toString()
-                    val game = Json.decodeFromString<Game>(responseString)
-                    val gameById = GameById(game) as GameResponse
-
-                    GlobalScope.launch {
-                        messageChannel.send(gameById)
-                    }
-                }
-            }
-        })
     }
 
     fun close() {

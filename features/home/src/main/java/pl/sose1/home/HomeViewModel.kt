@@ -2,27 +2,19 @@ package pl.sose1.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import pl.sose1.base.SingleLiveData
+import pl.sose1.core.model.exception.NotFoundException
 import pl.sose1.core.repository.HomeRepository
+import java.net.SocketTimeoutException
 
 class HomeViewModel(
-    private val homeRepository: HomeRepository
+        private val homeRepository: HomeRepository
 ) : ViewModel() {
 
     val events = SingleLiveData<HomeViewEvent>()
     val userName = SingleLiveData<String>()
     val gameCode = SingleLiveData<String>()
-
-    init {
-        viewModelScope.launch {
-            homeRepository.messageChannel.receiveAsFlow().collect {
-                events.value = userName.value?.let { userName -> HomeViewEvent.OpenLobby(it.id, userName) }
-            }
-        }
-    }
 
     fun onClickCreateButton() {
         events.value = HomeViewEvent.OnClickCreateButton
@@ -32,9 +24,22 @@ class HomeViewModel(
         val userNameString = userName.value
         val gameCodeString = gameCode.value
 
+
         viewModelScope.launch {
             if (!userNameString.isNullOrBlank() && !gameCodeString.isNullOrBlank()) {
-                homeRepository.getGameByCode(gameCodeString)
+                try {
+                    val game = homeRepository.getGameByCode(gameCodeString)
+                    events.value = userName.value?.let {
+                        HomeViewEvent.OpenLobby(game.id, it)
+                    }
+                }catch (e: Exception) {
+                    e.printStackTrace()
+
+                    when (e) {
+                        is SocketTimeoutException -> events.value = HomeViewEvent.ShowTimeoutException
+                        is NotFoundException -> events.value = HomeViewEvent.ShowNotFoundException
+                    }
+                }
             } else {
                 events.value = HomeViewEvent.ShowInputFieldError
             }
@@ -45,7 +50,14 @@ class HomeViewModel(
         val userNameString = userName.value
         viewModelScope.launch {
             if (!userNameString.isNullOrBlank()) {
-                homeRepository.getEmptyGame()
+                try {
+                    val game = homeRepository.getEmptyGame()
+                    events.value = userName.value?.let {
+                        HomeViewEvent.OpenLobby(game.id, it)
+                    }
+                }catch (e: Exception) {
+                    if (e is SocketTimeoutException) events.value = HomeViewEvent.ShowTimeoutException
+                }
             } else {
                 events.value = HomeViewEvent.ShowUserNameError
             }
@@ -54,10 +66,5 @@ class HomeViewModel(
 
     fun onClickInfoAboutCodeButton() {
         events.value = HomeViewEvent.onClickInfoAboutCodeButton
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        homeRepository.close()
     }
 }

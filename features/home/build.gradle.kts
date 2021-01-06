@@ -16,14 +16,14 @@ dependencies {
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
     implementation(Libraries.okHttp)
+
+    implementation(Libraries.liveData)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     implementation(Libraries.navigationFragment)
     implementation(Libraries.navigation)
     implementation(Libraries.coroutines)
     implementation(Libraries.coroutinesAndroid)
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
 
     kapt(Libraries.databinding)
