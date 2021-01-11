@@ -35,7 +35,7 @@
 
            <KeyAttribute
                motion:motionTarget="@+id/k"
-               motion:framePosition="12"
+               motion:framePosition="15"
                android:alpha="1.0"
                android:translationY="3dp" />
            <KeyAttribute
@@ -45,36 +45,36 @@
                android:translationY="3dp" />
            <KeyAttribute
                motion:motionTarget="@+id/k"
-               motion:framePosition="13"
+               motion:framePosition="15"
                android:alpha="1.0"
                android:translationY="4dp" />
            <KeyAttribute
                motion:motionTarget="@+id/ludek"
-               motion:framePosition="13"
+               motion:framePosition="15"
                android:alpha="1.0"
                android:translationY="4dp" />
 
 
            <KeyAttribute
                motion:motionTarget="@+id/ludek"
-               motion:framePosition="20"
+               motion:framePosition="17"
                android:alpha="1.0"
-               android:translationY="60dp" />
+               android:translationY="80dp" />
            <KeyAttribute
                motion:motionTarget="@+id/k"
-               motion:framePosition="20"
+               motion:framePosition="17"
                android:alpha="1.0"
-               android:translationY="60dp" />
+               android:translationY="80dp" />
 
 
            <KeyAttribute
                motion:motionTarget="@+id/k"
-               motion:framePosition="27"
+               motion:framePosition="22"
                android:alpha="1.0"
                android:translationY="0dp" />
            <KeyAttribute
                motion:motionTarget="@+id/ludek"
-               motion:framePosition="27"
+               motion:framePosition="22"
                android:alpha="1.0"
                android:translationY="4dp" />
 

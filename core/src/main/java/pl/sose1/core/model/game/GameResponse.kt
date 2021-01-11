@@ -34,13 +34,17 @@ class NewUser(
 ) : GameResponse()
 
 @Serializable
-@SerialName("GameById")
-class GameById(
-        val game: Game
-) : GameResponse()
-
-@Serializable
 @SerialName("GameStarted")
 class GameStarted(
         val isStarted: Boolean
 ) : GameResponse()
+
+@Serializable
+@SerialName("Painter")
+class Painter(
+        val wordGuess: String
+) : GameResponse()
+
+@Serializable
+@SerialName("Guessing")
+object Guessing : GameResponse()

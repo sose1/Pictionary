@@ -10,9 +10,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.SingleLiveData
-import pl.sose1.core.model.game.GameStarted
-import pl.sose1.core.model.game.Message
-import pl.sose1.core.model.game.NewUser
+import pl.sose1.core.model.game.*
 import pl.sose1.core.model.user.User
 import pl.sose1.core.repository.GameRepository
 import pl.sose1.ui.painting.PathDrawnListener
@@ -37,6 +35,8 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
                     is NewUser -> user = e.user
                     is Message -> events.value = GameViewEvent.SetMessage(e, user)
                     is GameStarted -> events.value = GameViewEvent.GameStarted(e.isStarted)
+                    is Painter -> events.value = GameViewEvent.Painter(e.wordGuess)
+                    is Guessing -> events.value = GameViewEvent.Guessing
                 }
             }
         }

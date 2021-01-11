@@ -1,6 +1,7 @@
 package pl.sose1.game
 
 import android.graphics.Color
+import android.view.View
 import android.widget.Toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -53,8 +54,22 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
             is GameViewEvent.SetGameCode -> binding.gameCode.text = event.code
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.DrawBitmap -> paintingView.drawBitmap(event.byteArray)
+            is GameViewEvent.Painter -> setWordToGuess(event.wordGuess)
             GameViewEvent.ShowTimeoutException -> showTimeoutException()
+            GameViewEvent.Guessing -> startGuessing()
         }
+    }
+
+    private fun startGuessing() {
+        binding.colorButton.visibility = View.INVISIBLE
+        binding.word.text = ""
+        paintingView.canPaint = false
+    }
+
+    private fun setWordToGuess(wordGuess: String) {
+        binding.colorButton.visibility = View.VISIBLE
+        binding.word.text = wordGuess
+        paintingView.canPaint = true
     }
 
     private fun showTimeoutException() {

@@ -24,6 +24,7 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
     lateinit var bitmap: Bitmap
 
     var isStarted = false
+    var canPaint = false
     var drawnListener: PathDrawnListener? = null
 
     private var paint = Paint().apply {
@@ -56,7 +57,7 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
         motionTouchEventX = event.x
         motionTouchEventY = event.y
 
-        if (isStarted) {
+        if (isStarted && canPaint) {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> touchStart()
                 MotionEvent.ACTION_MOVE -> touchMove()
@@ -113,5 +114,4 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
         invalidate()
     }
-
 }
