@@ -47,10 +47,12 @@ object Libraries {
 
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
 
-
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigation = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
+    const val firebaseBoM = "com.google.firebase:firebase-bom:26.2.0"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
     //others
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val koin = "org.koin:koin-android:${Versions.koin}"

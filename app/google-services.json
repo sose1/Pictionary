@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "723493910054",
+    "project_id": "kalambury-pl",
+    "storage_bucket": "kalambury-pl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723493910054:android:448fc6d3eb878e788018e7",
+        "android_client_info": {
+          "package_name": "pl.sose1.pictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "723493910054-i01rir44ag6ooku8v3734s34ophv78dt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlN2gEnBfFbVUq0WdnzpvDtYTUgZDLLQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "723493910054-i01rir44ag6ooku8v3734s34ophv78dt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

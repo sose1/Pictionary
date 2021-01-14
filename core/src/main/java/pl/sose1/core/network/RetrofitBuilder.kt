@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitBuilder {
-    private const val baseUrl = "http://192.168.0.2:8080/"
+    private const val baseUrl = "https://pictionarypl.herokuapp.com/"
 
     val client = OkHttpClient.Builder()
         .cookieJar(object : CookieJar {

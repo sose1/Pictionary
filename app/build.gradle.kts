@@ -3,9 +3,11 @@ import dependencies.Releases
 
 plugins {
     id("com.android.application")
+    id("kotlin-android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("android.extensions")
-    id("kotlin-android")
 }
 
 android {
@@ -45,6 +47,10 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":features:home"))
     implementation(project(":features:game"))
+
+    implementation(platform(Libraries.firebaseBoM))
+    implementation(Libraries.firebaseAnalytics)
+    implementation(Libraries.firebaseCrashlytics)
 
     implementation(Libraries.appCompat)
 
