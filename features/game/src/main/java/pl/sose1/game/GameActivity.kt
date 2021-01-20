@@ -1,8 +1,9 @@
 package pl.sose1.game
 
-import android.graphics.Color
 import android.view.View
 import android.widget.Toast
+import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog
+import com.github.dhaval2404.colorpicker.model.ColorShape
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import pl.sose1.base.view.BaseActivity
@@ -11,7 +12,6 @@ import pl.sose1.core.model.user.User
 import pl.sose1.game.adapter.message.MessageAdapter
 import pl.sose1.game.databinding.ActivityGameBinding
 import pl.sose1.ui.painting.PaintingView
-import top.defaults.colorpicker.ColorPickerPopup
 
 
 class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId = R.layout.activity_game) {
@@ -50,24 +50,27 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         when (event) {
             GameViewEvent.ClearMessageContentText -> clearMessageContentText()
             GameViewEvent.ChangeBrushColor -> changeBrushColor()
+            GameViewEvent.ShowTimeoutException -> showTimeoutException()
+            GameViewEvent.Guessing -> startGuessing()
+            GameViewEvent.ClearImage -> paintingView.clearImage()
             is GameViewEvent.GameStarted -> paintingView.isStarted = event.isStarted
             is GameViewEvent.SetGameCode -> binding.gameCode.text = event.code
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.DrawBitmap -> paintingView.drawBitmap(event.byteArray)
-            is GameViewEvent.Painter -> setWordToGuess(event.wordGuess)
-            GameViewEvent.ShowTimeoutException -> showTimeoutException()
-            GameViewEvent.Guessing -> startGuessing()
+            is GameViewEvent.Painter -> startPainting(event.wordGuess)
         }
     }
 
     private fun startGuessing() {
         binding.colorButton.visibility = View.INVISIBLE
+        binding.clearButton.visibility = View.INVISIBLE
         binding.word.text = ""
         paintingView.canPaint = false
     }
 
-    private fun setWordToGuess(wordGuess: String) {
+    private fun startPainting(wordGuess: String) {
         binding.colorButton.visibility = View.VISIBLE
+        binding.clearButton.visibility = View.VISIBLE
         binding.word.text = wordGuess
         paintingView.canPaint = true
     }
@@ -89,17 +92,11 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
     }
 
     private fun changeBrushColor() {
-        ColorPickerPopup.Builder(this)
-                .initialColor(Color.WHITE)
-                .okTitle("Wybierz")
-                .cancelTitle("Anuluj")
-                .showIndicator(true)
-                .showValue(false)
-                .build()
-                .show(object : ColorPickerPopup.ColorPickerObserver() {
-                    override fun onColorPicked(color: Int) {
-                        binding.paintingView.changeBrushColor(color)
-                    }
-                })
+        MaterialColorPickerDialog.Builder(this)
+            .setTitle("Wybierz kolor")
+            .setColors(arrayListOf("#ff0000", "#FFA500", "#FFFF00", "#FF00FF", "#0000FF", "#008000", "#A0522D", "#000000"))
+            .setColorShape(ColorShape.CIRCLE)
+            .setColorListener { color, _ ->  paintingView.changeBrushColor(color)}
+            .show()
     }
 }

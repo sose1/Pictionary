@@ -28,7 +28,7 @@ private object Versions {
     const val material = "1.2.0"
     const val recyclerView = "1.1.0"
     const val okHttp = "4.9.0"
-    const val colorPicker = "1.1.6"
+    const val colorPicker = "2.0"
     const val retrofit = "2.9.0"
     const val moshi = "2.4.0"
 }
@@ -64,7 +64,7 @@ object Libraries {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val moshi = "com.squareup.retrofit2:converter-moshi:${Versions.moshi}"
 
-    const val colorPicker = "com.github.duanhong169:colorpicker:${Versions.colorPicker}"
+    const val colorPicker = "com.github.dhaval2404:colorpicker:${Versions.colorPicker}"
 }
 
 /*object TestLibraries {

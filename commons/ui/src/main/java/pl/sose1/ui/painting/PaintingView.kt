@@ -114,4 +114,15 @@ class PaintingView(context: Context?, attrs: AttributeSet?) : View(context, attr
 
         invalidate()
     }
+
+    fun clearImage() {
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmapCanvas = Canvas(bitmap)
+        bitmapCanvas.drawColor(Color.WHITE )
+        val s = Bitmap.createScaledBitmap(bitmap, 800, 800, true)
+
+        drawnListener?.onPathDrawn(s)
+        invalidate()
+
+    }
 }

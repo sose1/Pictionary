@@ -13,4 +13,5 @@ sealed class GameViewEvent {
     object ChangeBrushColor : GameViewEvent()
     object ShowTimeoutException : GameViewEvent()
     object Guessing : GameViewEvent()
+    object ClearImage : GameViewEvent()
 }

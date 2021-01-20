@@ -14,7 +14,6 @@ import pl.sose1.core.model.game.*
 import pl.sose1.core.model.user.User
 import pl.sose1.core.repository.GameRepository
 import pl.sose1.ui.painting.PathDrawnListener
-import timber.log.Timber
 import java.net.SocketTimeoutException
 
 class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListener {
@@ -78,9 +77,11 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
     }
 
     fun changeBrushColor() {
-        Timber.d("CHANGE BRUSH COLOR")
-
         events.value = GameViewEvent.ChangeBrushColor
+    }
+
+    fun clearImage() {
+        events.value = GameViewEvent.ClearImage
     }
 
     override fun onPathDrawn(bitmap: Bitmap) {

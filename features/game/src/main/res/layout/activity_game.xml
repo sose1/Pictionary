@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:text=""
+                android:textColor="@android:color/tertiary_text_light"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nova_flat"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:textColor="@color/colorPrimaryDark"
                 android:text=""
                 android:textSize="32sp"
@@ -55,8 +56,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:elevation="2dp"
-                android:layout_margin="8dp"
-                app:layout_constraintTop_toBottomOf="@id/word"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageButton
@@ -68,8 +70,39 @@
                     android:background="@drawable/ic_green_circle"
                     android:src="@drawable/ic_baseline_color_lens"
                     android:onClick="@{() -> viewModel.changeBrushColor()}"
+                    android:paddingBottom="10dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:visibility="visible"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clear_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintTop_toBottomOf="@id/brush_tools"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageButton
+                    android:id="@+id/clear_button"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:foregroundGravity="center"
+                    android:visibility="invisible"
+                    android:background="@drawable/ic_green_circle"
+                    android:src="@drawable/ic_baseline_delete"
+                    android:onClick="@{() -> viewModel.clearImage()}"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:visibility="visible"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
