@@ -6,6 +6,7 @@ plugins {
     id("kotlin-android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
     kotlin("android")
     kotlin("android.extensions")
 }
@@ -51,6 +52,7 @@ dependencies {
     implementation(platform(Libraries.firebaseBoM))
     implementation(Libraries.firebaseAnalytics)
     implementation(Libraries.firebaseCrashlytics)
+    implementation(Libraries.firebasePerf)
 
     implementation(Libraries.appCompat)
 
