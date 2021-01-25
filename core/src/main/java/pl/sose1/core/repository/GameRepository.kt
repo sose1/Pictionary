@@ -26,6 +26,7 @@ class GameRepository(private val gameId: String) {
     private var service = RetrofitBuilder.apiService
 
     private var request = Request.Builder().url("ws://pictionarypl.herokuapp.com//game/$gameId")
+//    private var request = Request.Builder().url("ws://192.168.0.2:8080/game/$gameId")
     private lateinit var webSocket: WebSocket
 
     val messageChannel = Channel<GameResponse>(1)

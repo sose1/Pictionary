@@ -1,4 +1,4 @@
-package pl.sose1.core.service
+package pl.sose1.core.network.service
 
 import pl.sose1.core.model.game.Game
 import retrofit2.http.GET

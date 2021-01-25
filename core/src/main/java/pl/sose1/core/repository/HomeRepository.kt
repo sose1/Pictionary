@@ -7,7 +7,6 @@ import retrofit2.HttpException
 
 class HomeRepository {
     private var service = RetrofitBuilder.apiService
-
     suspend fun getEmptyGame() = service.getEmptyGame()
 
     suspend fun  getGameByCode(code: String): Game {

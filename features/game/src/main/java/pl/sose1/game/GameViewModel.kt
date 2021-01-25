@@ -24,7 +24,6 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
 
     val events = SingleLiveData<GameViewEvent>()
     val messageContent = SingleLiveData<String>()
-
     var user: User = User("", "")
 
     init {
@@ -35,7 +34,7 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
                     is Message -> events.value = GameViewEvent.SetMessage(e, user)
                     is GameStarted -> events.value = GameViewEvent.GameStarted(e.isStarted)
                     is Painter -> events.value = GameViewEvent.Painter(e.wordGuess)
-                    is Guessing -> events.value = GameViewEvent.Guessing
+                    is Guessing -> events.value = GameViewEvent.Guessing(e.wordGuessInUnder)
                 }
             }
         }

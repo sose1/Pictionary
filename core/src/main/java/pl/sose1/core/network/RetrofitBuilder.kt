@@ -4,12 +4,13 @@ import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import pl.sose1.core.service.ApiService
+import pl.sose1.core.network.service.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitBuilder {
     private const val baseUrl = "https://pictionarypl.herokuapp.com/"
+//    private const val baseUrl = "http://192.168.0.2:8080/"
 
     val client = OkHttpClient.Builder()
         .cookieJar(object : CookieJar {
