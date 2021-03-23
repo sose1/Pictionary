@@ -9,44 +9,29 @@ import pl.sose1.core.model.user.User
 sealed class GameResponse
 
 @Serializable
-@SerialName("Users")
-class Users(
-        val users: List<User>
-) : GameResponse()
-
-@Serializable
-@SerialName("NewOwner")
-class NewOwner(
-        val user: User
-) : GameResponse()
-
-@Serializable
 @SerialName("Message")
-class Message(
-        val content: String,
-        val author: User
-) : GameResponse()
+class Message(val content: String, val author: User ): GameResponse()
 
 @Serializable
-@SerialName("NewUser")
-class NewUser(
-        val user: User
-) : GameResponse()
+@SerialName("NewOwnerAdded")
+class NewOwnerAdded(val user: User) : GameResponse()
+
+@Serializable
+@SerialName("NewUserAdded")
+class NewUserAdded(val user: User) : GameResponse()
 
 @Serializable
 @SerialName("GameStarted")
-class GameStarted(
-        val isStarted: Boolean
-) : GameResponse()
+class GameStarted(val isStarted: Boolean) : GameResponse()
 
 @Serializable
-@SerialName("Painter")
-class Painter(
-        val wordGuess: String
-) : GameResponse()
+@SerialName("FirstRoundStarted")
+class FirstRoundStarted(val newWordGuess: String, val isPainter: Boolean ) : GameResponse()
 
 @Serializable
-@SerialName("Guessing")
-class Guessing(
-        val wordGuessInUnder: String
-) : GameResponse()
+@SerialName("NextRoundStarted")
+class NextRoundStarted(
+        val userNameWhoGuessed: String,
+        val oldWordGuess: String,
+        val newWordGuess: String,
+        val isPainter: Boolean) : GameResponse()

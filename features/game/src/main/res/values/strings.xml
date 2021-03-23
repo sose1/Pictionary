@@ -2,4 +2,6 @@
     <string name="game_code">Kod gry</string>
     <string name="start">Start</string>
     <string name="send">Wyślij</string>
+    <string name="guess">Zgaduj</string>
+    <string name="paint">Rysuj</string>
 </resources>

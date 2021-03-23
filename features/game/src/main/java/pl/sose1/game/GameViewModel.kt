@@ -1,6 +1,7 @@
 package pl.sose1.game
 
 import android.graphics.Bitmap
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
@@ -24,17 +25,22 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
 
     val events = SingleLiveData<GameViewEvent>()
     val messageContent = SingleLiveData<String>()
+    var word = MutableLiveData("")
+    var isPainter = MutableLiveData(false)
+    var isStarted = MutableLiveData(false)
+    var code = MutableLiveData("")
     var user: User = User("", "")
+    var bottomSheetInfo = MutableLiveData("")
 
     init {
         viewModelScope.launch {
             gameRepository.messageChannel.receiveAsFlow().collect { e ->
                 when (e) {
-                    is NewUser -> user = e.user
+                    is NewUserAdded -> user = e.user
                     is Message -> events.value = GameViewEvent.SetMessage(e, user)
-                    is GameStarted -> events.value = GameViewEvent.GameStarted(e.isStarted)
-                    is Painter -> events.value = GameViewEvent.Painter(e.wordGuess)
-                    is Guessing -> events.value = GameViewEvent.Guessing(e.wordGuessInUnder)
+                    is GameStarted -> onGameStarted(e)
+                    is FirstRoundStarted -> onFirstRoundStarted(e)
+                    is NextRoundStarted -> onNextRoundStarted(e)
                 }
             }
         }
@@ -44,6 +50,35 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
                 events.value = GameViewEvent.DrawBitmap(it)
             }
         }
+    }
+
+    private fun onFirstRoundStarted(event: FirstRoundStarted) {
+        word.postValue(event.newWordGuess)
+        isPainter.postValue(event.isPainter)
+
+        if (event.isPainter) {
+            events.value = GameViewEvent.ShowPaintingInfoAnimation
+
+        } else {
+            events.value = GameViewEvent.ShowGuessingInfoAnimation
+        }
+    }
+
+    private fun onNextRoundStarted(event: NextRoundStarted) {
+        word.postValue(event.newWordGuess)
+        isPainter.postValue(event.isPainter)
+        bottomSheetInfo.postValue("${event.userNameWhoGuessed} zgadł hasło! \"${event.oldWordGuess.toLowerCase()}\"")
+        if (event.isPainter) {
+            events.value = GameViewEvent.ShowWordGuessAndPaintingInfoAnimation
+
+        } else {
+            events.value = GameViewEvent.ShowWordGuessAndGuessingInfoAnimation
+        }
+    }
+
+    private fun onGameStarted(event: GameStarted) {
+        isStarted.postValue(event.isStarted)
+
     }
 
     override fun onCleared() {
@@ -59,8 +94,9 @@ class GameViewModel(gameId: String): ViewModel(), KoinComponent, PathDrawnListen
         viewModelScope.launch {
             try {
                 val game = gameRepository.getGameById()
-                events.value = GameViewEvent.SetGameCode(game.code)
-            }catch (e: Exception) {
+                code.postValue(game.code)
+
+            } catch (e: Exception) {
                 if (e is SocketTimeoutException) events.value = GameViewEvent.ShowTimeoutException
             }
         }

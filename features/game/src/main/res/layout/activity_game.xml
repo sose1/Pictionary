@@ -17,20 +17,47 @@
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/info_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:translationZ="1dp"
+                android:layout_margin="0dp"
+                android:translationY="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@{viewModel.bottomSheetInfo}"
+                    android:textColor="@color/white"
+                    android:layout_margin="6dp"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="SOse zgadł hasło"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nova_oval"
-                android:gravity="center"
-                android:translationZ="1dp"
+                android:textAlignment="center"
+                android:translationZ="2dp"
+                android:textSize="78sp"
                 android:background="@android:color/transparent"
                 android:textColor="@color/colorAccent"
-                android:text=""
-                android:textSize="78sp"
                 android:visibility="invisible"
                 android:translationY="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text=""
+                android:text="@{viewModel.code}"
                 android:textColor="@android:color/tertiary_text_light"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +87,8 @@
                 android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:textColor="@color/colorPrimaryDark"
-                android:text=""
+                android:text="@{viewModel.word}"
+                visible="@{viewModel.word.length() > 0}"
                 android:textSize="32sp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,6 +158,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/white"
+                canPaint="@{viewModel.isStarted &amp; viewModel.isPainter}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +170,7 @@
             android:id="@+id/chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shape_chat"
+            android:background="@color/colorSecondaryDark"
             android:layout_weight="3">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/messages"

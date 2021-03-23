@@ -1,5 +1,6 @@
 package pl.sose1.game
 
+import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -37,8 +38,6 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         binding.viewModel = viewModel
         viewModel.events.observe(this, this::onViewEvent)
 
-        resetLayout()
-
         paintingView = binding.paintingView
         paintingView.post {
             paintingView.initialize()
@@ -57,63 +56,79 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
 
     private fun onViewEvent(event: GameViewEvent) {
         when (event) {
-            GameViewEvent.ClearMessageContentText -> clearMessageContentText()
-            GameViewEvent.ChangeBrushColor -> changeBrushColor()
-            GameViewEvent.ShowTimeoutException -> showTimeoutException()
-            GameViewEvent.ClearImage -> paintingView.clearImage()
-            is GameViewEvent.Guessing -> startGuessing(event.wordGuessInUnder)
-            is GameViewEvent.GameStarted -> paintingView.isStarted = event.isStarted
-            is GameViewEvent.SetGameCode -> binding.gameCode.text = event.code
             is GameViewEvent.SetMessage -> setMessages(event.message, event.user)
             is GameViewEvent.DrawBitmap -> paintingView.drawBitmap(event.byteArray)
-            is GameViewEvent.Painter -> startPainting(event.wordGuess)
+            GameViewEvent.ChangeBrushColor -> changeBrushColor()
+            GameViewEvent.ShowTimeoutException -> showTimeoutException()
+            GameViewEvent.ShowGuessingInfoAnimation -> showGuessingInfoAnimation()
+            GameViewEvent.ShowPaintingInfoAnimation -> showPaintingInfoAnimation()
+            GameViewEvent.ClearImage -> paintingView.clearImage()
+            GameViewEvent.ClearMessageContentText -> clearMessageContentText()
+            GameViewEvent.ShowWordGuessAndPaintingInfoAnimation -> showWordGuessAndPaintingInfoAnimation()
+            GameViewEvent.ShowWordGuessAndGuessingInfoAnimation -> showWordGuessAndGuessingInfoAnimation()
         }
     }
 
-    private fun startGuessing(wordGuessInUnder: String) {
+    private fun showWordGuessAndGuessingInfoAnimation() {
+        val animSheetSlideUp = AnimationUtils.loadAnimation(this, R.anim.bottom_sheet_info_slide_up)
+        val animSheetSlideDown = AnimationUtils.loadAnimation(this, R.anim.bottom_sheet_ino_slide_down)
+
+        createAnimation(animSheetSlideUp, animSheetSlideDown,0, binding.infoSheet) {
+            Handler().postDelayed({
+                showGuessingInfoAnimation()
+            }, animSheetSlideUp.duration)
+        }
+    }
+
+    private fun showWordGuessAndPaintingInfoAnimation() {
+        val animSheetSlideUp = AnimationUtils.loadAnimation(this, R.anim.bottom_sheet_info_slide_up)
+        val animSheetSlideDown = AnimationUtils.loadAnimation(this, R.anim.bottom_sheet_ino_slide_down)
+
+        createAnimation(animSheetSlideUp, animSheetSlideDown,0, binding.infoSheet) {
+            Handler().postDelayed({
+                showPaintingInfoAnimation()
+            }, animSheetSlideUp.duration)
+        }
+    }
+
+    private fun showGuessingInfoAnimation() {
         val animInfoSlideUp = AnimationUtils.loadAnimation(this, R.anim.info_slide_up)
         val animInfoSlideDown = AnimationUtils.loadAnimation(this, R.anim.info_slide_down)
         val animBrushToolsSlideRight = AnimationUtils.loadAnimation(this, R.anim.brush_tools_slide_right)
+        val animClearImageSlideRight = AnimationUtils.loadAnimation(this, R.anim.clear_image_slide_right)
 
-        resetLayout()
-        binding.info.text = "Zgaduj"
+        binding.info.text = getString(R.string.guess)
         binding.info.visibility = View.VISIBLE
 
-        createAnimation(animInfoSlideUp, animInfoSlideDown,0L, binding.info) {
+        createAnimation(animInfoSlideUp, animInfoSlideDown,0, binding.info) {
             if (binding.clearImage.isVisible) {
-                createAnimation(animBrushToolsSlideRight, null, 500L, binding.clearImage) {}
+                createAnimation(animClearImageSlideRight, null, 0, binding.clearImage){
+                    binding.brushTools.visibility = View.INVISIBLE
+                }
             }
             if (binding.brushTools.isVisible) {
-                createAnimation(animBrushToolsSlideRight, null, 800L, binding.brushTools) {}
+                createAnimation(animBrushToolsSlideRight, null, 70, binding.brushTools){
+                    binding.clearImage.visibility = View.INVISIBLE
+                }
             }
-            binding.brushTools.visibility = View.INVISIBLE
-            binding.clearImage.visibility = View.INVISIBLE
-
-            binding.word.text = wordGuessInUnder
-            binding.word.visibility = View.VISIBLE
-            paintingView.canPaint = false
         }
     }
 
-    private fun startPainting(wordGuess: String) {
+    private fun showPaintingInfoAnimation() {
         val animInfoSlideUp = AnimationUtils.loadAnimation(this, R.anim.info_slide_up)
         val animInfoSlideDown = AnimationUtils.loadAnimation(this, R.anim.info_slide_down)
         val animBrushToolsSlideLeft = AnimationUtils.loadAnimation(this, R.anim.brush_tools_slide_left)
+        val animClearImageSlideLeft = AnimationUtils.loadAnimation(this, R.anim.clear_image_slide_left)
 
-        resetLayout()
-
-        binding.info.text = "Rysuj"
+        binding.info.text = getString(R.string.paint)
         binding.info.visibility = View.VISIBLE
 
-        createAnimation(animInfoSlideUp, animInfoSlideDown,0L, binding.info) {
+        createAnimation(animInfoSlideUp, animInfoSlideDown,0, binding.info) {
             binding.brushTools.visibility = View.VISIBLE
+            createAnimation(animBrushToolsSlideLeft, null, 0, binding.brushTools) {}
+
             binding.clearImage.visibility = View.VISIBLE
-            createAnimation(animBrushToolsSlideLeft, null, 500L, binding.brushTools) {}
-            createAnimation(animBrushToolsSlideLeft, null, 800L, binding.clearImage) {
-                paintingView.canPaint = true
-                binding.word.text = wordGuess
-                binding.word.visibility = View.VISIBLE
-            }
+            createAnimation(animClearImageSlideLeft, null, 70, binding.clearImage) {}
         }
     }
 
@@ -137,24 +152,10 @@ class GameActivity : BaseActivity<ActivityGameBinding, GameViewModel>(layoutId =
         MaterialColorPickerDialog.Builder(this)
                 .setTitle("Wybierz kolor")
                 .setColors(
-                        arrayListOf(
-                                "#ff0000",
-                                "#FFA500",
-                                "#FFFF00",
-                                "#FF00FF",
-                                "#0000FF",
-                                "#008000",
-                                "#A0522D",
-                                "#000000"
-                        )
+                        arrayListOf("#ff0000", "#FFA500", "#FFFF00", "#FF00FF", "#0000FF", "#008000", "#A0522D", "#000000")
                 )
                 .setColorShape(ColorShape.CIRCLE)
                 .setColorListener { color, _ ->  paintingView.changeBrushColor(color)}
                 .show()
-    }
-
-    private fun resetLayout() {
-        binding.info.visibility = View.INVISIBLE
-        binding.word.visibility = View.INVISIBLE
     }
 }

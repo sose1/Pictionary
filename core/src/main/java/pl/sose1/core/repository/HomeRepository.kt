@@ -4,6 +4,7 @@ import pl.sose1.core.model.exception.NotFoundException
 import pl.sose1.core.model.game.Game
 import pl.sose1.core.network.RetrofitBuilder
 import retrofit2.HttpException
+import timber.log.Timber
 
 class HomeRepository {
     private var service = RetrofitBuilder.apiService
@@ -13,6 +14,7 @@ class HomeRepository {
         return try {
             service.getGameByCode(code)
         } catch (e: HttpException) {
+            Timber.d("${e.response()}")
             when (e.code()) {
                 404 -> throw NotFoundException()
                 else -> throw Exception()
